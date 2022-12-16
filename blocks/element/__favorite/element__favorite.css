@@ -1,16 +1,11 @@
 .element__favorite {
   grid-area: element__favorite;
   justify-self: center;
-width: 22px;
-height: 19px;
- 
+  width: 22px;
+  height: 19px;
   background: center / cover no-repeat url(../../../images/favorite-button.svg);
-
   cursor: pointer;
-
   transition: opacity .3s ease-in-out;
-
-  
 }
 
 .element__favorite:hover {

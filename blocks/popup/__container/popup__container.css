@@ -4,22 +4,21 @@
   margin: auto;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
-  grid-template-areas: 
-  "empty-aria-one popup__close-button"
-  "popup__window empty-aria-two";
+  grid-template-areas:
+    "empty-aria-one popup__close-button"
+    "popup__window empty-aria-two";
   column-gap: 8px;
   row-gap: 8px;
-  
 }
 
 @media screen and (max-width: 767px) {
   .popup__container {
     grid-template-columns: auto;
-  grid-template-rows: repeat(2, auto);
-  grid-template-areas: 
-  "popup__close-button"
-  "popup__window";
-  justify-items: end;
-  row-gap: 16px;
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+      "popup__close-button"
+      "popup__window";
+    justify-items: end;
+    row-gap: 16px;
   }
 }

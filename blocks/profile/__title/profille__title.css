@@ -1,8 +1,5 @@
 .profile__title {
-  /* display: inline; */
-  /* display: block; */
   grid-area: profile__title;
-  /* position: relative; */
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -11,41 +8,13 @@
   color: #FFF;
   margin: 0;
   padding: 0;
-  /* width: 100%; */
   word-wrap: break-word;
-  
-  
-
-  
 }
-
-
-/* @media screen and (max-width: 1279px) {
-  .profile__title {
-    
-  }
-} */
-
-/* @media screen and (max-width: 1023px) {
-  .profile__title {
-  
-  }
-} */
-/* 
-
-@media screen and (max-width: 767px) {
-  .profile__title {
-    
-margin-left: 40px;
-
-  }
-} */
 
 @media screen and (max-width: 424px) {
   .profile__title {
-   font-size: 27px;
-   line-height: 33px;
-   margin-left: 28px;
-  
+    font-size: 27px;
+    line-height: 33px;
+    margin-left: 28px;
   }
 }

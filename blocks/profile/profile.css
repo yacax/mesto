@@ -1,6 +1,5 @@
 .profile {
   display: flex;
-  /* position: relative; */
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -8,18 +7,6 @@
   padding: 39px 0;
   gap: 30px;
 }
-
-/* @media screen and (max-width: 1279px) {
-  .profile {
-    
-  }
-} */
-
-/* @media screen and (max-width: 1023px) {
-  .profile {
-    flex-direction: column;
-  }
-} */
 
 @media screen and (max-width: 767px) {
   .profile {
@@ -30,9 +17,3 @@
     padding-bottom: 24px;
   }
 }
-
-/* @media screen and (max-width: 424px) {
-  .profile {
-   
-  }
-} */

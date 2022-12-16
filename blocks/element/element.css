@@ -1,22 +1,12 @@
 .element {
-
-  /* border: 0.1px solid red; */
-
-display: grid;
-grid-template-columns: auto 60px;
+  display: grid;
+  grid-template-columns: auto 60px;
   grid-template-rows: repeat(2, auto);
-grid-template-areas: 
-"element__image element__image"
-"element__title element__favorite";
-
-align-items: center;
-
-
-background: #fff;
-border-radius: 10px;
-  
-overflow: hidden;
-
-
-
+  grid-template-areas:
+    "element__image element__image"
+    "element__title element__favorite";
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
 }

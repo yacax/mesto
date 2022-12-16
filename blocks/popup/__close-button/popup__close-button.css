@@ -4,11 +4,8 @@
   height: 32px;
   border: none;
   background: url(../../../images/close-button.svg) center / contain no-repeat;
-  
   cursor: pointer;
-
   transition: opacity 0.3s ease-in-out;
-
 }
 
 .popup__close-button:hover {
