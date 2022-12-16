@@ -1,7 +1,8 @@
 .profile {
   display: flex;
+  /* position: relative; */
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin: 0;
   padding: 39px 0;

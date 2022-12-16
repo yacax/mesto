@@ -1,0 +1,10 @@
+.element__favorite_active {
+    background: url(../../../../images/favorite-button_active.svg);  
+    transition: opacity .3s ease;
+
+}
+
+.element__favorite_active:hover {
+    opacity: 1;
+    
+}

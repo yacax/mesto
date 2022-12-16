@@ -20,67 +20,81 @@
     </header>
 
     <main>
-      <cover class="profile">
+      <section class="profile">
 
-          <img src="images/avatar-custo.png" alt="Фотография пользователя." class="profile__avatar">
-          <div class="profile__info">
+        <img src="images/avatar-custo.jpg" alt="Фотография пользователя." class="profile__avatar">
+        <div class="profile__info">
+
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button class="profile__edit-button"></button>
           <p class="profile__subtitle">Исследователь океана</p>
 
         </div>
         <button class="profile__add-button"></button>
-      </cover>
-
-      <section class="elements">
-        <!-- aria-label="Галлерея" -->
-
-           <div class="element">
-            <img src="images/mesto-karachaevsk.jpg" alt="" class="element__image">
-            <h2 class="element__title">Карачаевск</h2>
-            <div class="element__favorite"></div>
-           </div>
-
-           <div class="element">
-            <img src="images/mesto-elbrus.jpg" alt="" class="element__image">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <div class="element__favorite"></div>
-           </div>
-           
-           <div class="element">
-            <img src="images/mesto-dombay.jpg" alt="" class="element__image">
-            <h2 class="element__title">Домбай</h2>
-            <div class="element__favorite"></div>
-           </div>
-
-           <div class="element">
-            <img src="images/mesto-elbrus.jpg" alt="" class="element__image">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <div class="element__favorite"></div>
-           </div>
-
-           <div class="element">
-            <img src="images/mesto-dombay.jpg" alt="" class="element__image">
-            <h2 class="element__title">Домбай</h2>
-            <div class="element__favorite"></div>
-           </div>
-
-
-           <div class="element">
-            <img src="images/mesto-karachaevsk.jpg" alt="" class="element__image">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <div class="element__favorite"></div>
-           </div>
       </section>
 
+      <section class="elements">
+        
+        <div class="element">
+          <img src="images/mesto-karachaevsk.jpg" alt="" class="element__image">
+          <h2 class="element__title">Карачаевск</h2>
+          <div class="element__favorite"></div>
+        </div>
+
+        <div class="element">
+          <img src="images/mesto-elbrus.jpg" alt="" class="element__image">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <div class="element__favorite"></div>
+        </div>
+
+        <div class="element">
+          <img src="images/mesto-dombay.jpg" alt="" class="element__image">
+          <h2 class="element__title">Домбай</h2>
+          <div class="element__favorite"></div>
+        </div>
+
+        <div class="element">
+          <img src="images/mesto-elbrus.jpg" alt="" class="element__image">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <div class="element__favorite"></div>
+        </div>
+
+        <div class="element">
+          <img src="images/mesto-dombay.jpg" alt="" class="element__image">
+          <h2 class="element__title">Домбай</h2>
+          <div class="element__favorite"></div>
+        </div>
+
+        <div class="element">
+          <img src="images/mesto-karachaevsk.jpg" alt="" class="element__image">
+          <h2 class="element__title">Карачаево-Черкессия</h2>
+          <div class="element__favorite"></div>
+        </div>
+      </section>
 
     </main>
-<footer class="footer">
-  <p class="copyright">&copy; 2020 Mesto Russia</p>
-</footer>
+
+    <footer class="footer">
+      <p class="copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
 
   </div>
 
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close-button"></button>
+      <div class="popup__window">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="popup__profile-title-input">
+        <input type="text" class="popup__profile-subtitle-input">
+        <button class="popup__save-button">Сохранить</button>
+
+
+      </div>
+
+    </div>
+  </div>
+  <script src="pages/script.js"></script>
 </body>
 
 </html>

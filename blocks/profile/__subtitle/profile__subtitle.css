@@ -1,6 +1,7 @@
 .profile__subtitle {
-  position: relative;
-  display: block;
+  grid-area: profile__subtitle;
+  /* position: relative;
+  display: block; */
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
