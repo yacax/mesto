@@ -2,10 +2,7 @@
   display: grid;
   position: relative;
   grid-template-columns: minmax(auto, max-content) 24px;
-  grid-template-rows: repeat(2, fit-content);
-
-
-
+  grid-template-rows: repeat(2, auto);
   grid-template-areas:
     "profile__title profile__edit-button"
     "profile__subtitle profile__subtitle";
