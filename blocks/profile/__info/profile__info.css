@@ -1,8 +1,11 @@
 .profile__info {
   display: grid;
   position: relative;
-  grid-template-columns: minmax(auto, max-content) min-content;
-  grid-template-rows: repeat(2, auto);
+  grid-template-columns: minmax(auto, max-content) 24px;
+  grid-template-rows: repeat(2, fit-content);
+
+
+
   grid-template-areas:
     "profile__title profile__edit-button"
     "profile__subtitle profile__subtitle";
@@ -11,11 +14,14 @@
   margin: 0;
   justify-items: start;
   flex-grow: 1;
-  overflow: auto;
+  max-width: 100%;
+  /* overflow: auto;  */
 }
 
 @media screen and (max-width: 767px) {
   .profile__info {
+    grid-template-columns: repeat(2, auto);
+
     max-width: calc(100% - 100px);
     column-gap: 11px;
     justify-items: center;

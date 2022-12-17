@@ -6,6 +6,7 @@
   background: center / cover no-repeat url(../../../images/favorite-button.svg);
   cursor: pointer;
   transition: opacity .3s ease-in-out;
+  border: none;
 }
 
 .element__favorite:hover {
