@@ -1,21 +1,89 @@
-let popup = document.querySelector('.popup');
+let popupProfile = document.querySelector('.popup_name_profile');
+let popupElement = document.querySelector('.popup_name_element');
 
 let editProfileButton = document.querySelector('.profile__edit-button');
-let closePopupButton = popup.querySelector('.popup__close-button');
-let savePopupSubmit = popup.querySelector('.popup__window');
+let closePopupProfileButton = popupProfile.querySelector('.popup__close-button');
+let savePopupSubmit = popupProfile.querySelector('.popup__window');
 
-let profileTitleInput  = popup.querySelector('.popup__text-input_name_title');
-let profileSubtitleInput = popup.querySelector('.popup__text-input_name_subtitle');
+
+
+
+
+let closePopupElementButton = popupElement.querySelector('.popup__close-button');
+let addPopupElementButton = document.querySelector('.profile__add-button');
+
+
+
+
+
+let profileTitleInput = popupProfile.querySelector('.popup__text-input_name_title');
+let profileSubtitleInput = popupProfile.querySelector('.popup__text-input_name_subtitle');
 
 let profile = document.querySelector('.profile');
 let profileTitle = profile.querySelector('.profile__title');
 let profileSubtitle = profile.querySelector('.profile__subtitle');
 
-function openPopup() {
+
+
+const elementTemplate = document.querySelector('.element-template').content;
+
+const elementsList = document.querySelector('.elements');
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+initialCards.forEach(addElement);
+
+  // const elementElement = elementTemplate.cloneNode(true);
+
+  // elementElement.querySelector('.element__title').textContent = element.name;
+  // elementElement.querySelector('.element__image').src = element.link;
+
+  // elementsList.append(elementElement);
+
+// })
+
+function addElement(element) {
+
+  const elementElement = elementTemplate.cloneNode(true);
+
+  elementElement.querySelector('.element__title').textContent = element.name;
+  elementElement.querySelector('.element__image').src = element.link;
+
+  elementsList.append(elementElement);
+
+
+}
+
+function openPopupProfile() {
   profileTitleInput.value = profileTitle.textContent;
   profileSubtitleInput.value = profileSubtitle.textContent;
 
-  popup.classList.add('popup_opened');
+  popupProfile.classList.add('popup_opened');
 }
 
 function handleFormSubmit(evt) {
@@ -31,12 +99,23 @@ function handleFormSubmit(evt) {
 }
 
 function closePopup() {
-  popup.classList.remove('popup_opened');
+  this.parentElement.parentNode.classList.remove('popup_opened');
+  console.log(this)
 }
 
+// Избранное
 
-editProfileButton.addEventListener('click', openPopup);
+elementsList.addEventListener('click', (eventTarget) => {
+  if (eventTarget.target.classList.contains('element__favorite')) { eventTarget.target.classList.toggle('element__favorite_active') }
+});
 
-closePopupButton.addEventListener('click', closePopup);
+
+editProfileButton.addEventListener('click', openPopupProfile);
+
+closePopupProfileButton.addEventListener('click', closePopup);
 
 savePopupSubmit.addEventListener('submit', handleFormSubmit);
+
+addPopupElementButton.addEventListener('click', () => popupElement.classList.add('popup_opened'));
+
+closePopupElementButton.addEventListener('click', closePopup);

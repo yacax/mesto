@@ -2,7 +2,7 @@
   display: grid;
   position: relative;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, min-content);
   grid-template-rows: repeat(2, 1fr);
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -10,7 +10,8 @@
   column-gap: 17px;
   row-gap: 20px;
   align-content: space-between;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: center;
 
   margin: 0 auto;
   padding: 12px 0 0;
@@ -18,14 +19,15 @@
 
 @media screen and (max-width: 1023px) {
   .elements {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, min-content);
     grid-template-rows: repeat(3, 1fr);
   }
 }
 
 @media screen and (max-width: 767px) {
   .elements {
-    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+    grid-template-columns: repeat(1, min-content);
     width: calc(100% - 100px);
   }
 }
@@ -33,5 +35,6 @@
 @media screen and (max-width: 424px) {
   .elements {
     width: calc(100% - 39px);
+    
   }
 }
