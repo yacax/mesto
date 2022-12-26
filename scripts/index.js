@@ -3,7 +3,9 @@ let popupElement = document.querySelector('.popup_name_element');
 
 let editProfileButton = document.querySelector('.profile__edit-button');
 let closePopupProfileButton = popupProfile.querySelector('.popup__close-button');
-let savePopupSubmit = popupProfile.querySelector('.popup__window');
+
+let savePopupSubmitProfile = popupProfile.querySelector('.popup__window');
+let savePopupSubmitElement = popupElement.querySelector('.popup__window');
 
 
 
@@ -94,13 +96,21 @@ function handleFormSubmit(evt) {
   } else {
     profileTitle.textContent = profileTitleInput.value;
     profileSubtitle.textContent = profileSubtitleInput.value;
-    closePopup();
+    popupProfile.classList.remove('popup_opened');    
   }
+}
+
+function ElementSubmit(evt) {
+
+  console.log(evt)
+  evt.preventDefault();
+
+  addElement()
+  
 }
 
 function closePopup() {
   this.parentElement.parentNode.classList.remove('popup_opened');
-  console.log(this)
 }
 
 // Избранное
@@ -114,8 +124,14 @@ editProfileButton.addEventListener('click', openPopupProfile);
 
 closePopupProfileButton.addEventListener('click', closePopup);
 
-savePopupSubmit.addEventListener('submit', handleFormSubmit);
+savePopupSubmitProfile.addEventListener('submit', handleFormSubmit);
+
+
+
+
 
 addPopupElementButton.addEventListener('click', () => popupElement.classList.add('popup_opened'));
 
 closePopupElementButton.addEventListener('click', closePopup);
+
+savePopupSubmitElement.addEventListener('submit', ElementSubmit);
