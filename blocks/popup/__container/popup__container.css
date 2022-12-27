@@ -1,6 +1,7 @@
 .popup__container {
   display: grid;
   position: relative;
+  max-width: 100%;
   margin: auto;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);

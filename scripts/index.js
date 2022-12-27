@@ -1,25 +1,23 @@
 let popupProfile = document.querySelector('.popup_name_profile');
 let popupElement = document.querySelector('.popup_name_element');
+let popupImage = document.querySelector('.popup_name_image');
+
 
 let editProfileButton = document.querySelector('.profile__edit-button');
 let closePopupProfileButton = popupProfile.querySelector('.popup__close-button');
 
 let savePopupSubmitProfile = popupProfile.querySelector('.popup__window');
 let savePopupSubmitElement = popupElement.querySelector('.popup__window');
-
-
-
-
+let closePopupImageButton = popupImage.querySelector('.popup__close-button')
 
 let closePopupElementButton = popupElement.querySelector('.popup__close-button');
 let addPopupElementButton = document.querySelector('.profile__add-button');
 
-
-
-
-
 let profileTitleInput = popupProfile.querySelector('.popup__text-input_name_title');
 let profileSubtitleInput = popupProfile.querySelector('.popup__text-input_name_subtitle');
+
+let elementTitleInput = popupElement.querySelector('.popup__text-input_name_title');
+let elementSubtitleInput = popupElement.querySelector('.popup__text-input_name_subtitle');
 
 let profile = document.querySelector('.profile');
 let profileTitle = profile.querySelector('.profile__title');
@@ -31,7 +29,7 @@ const elementTemplate = document.querySelector('.element-template').content;
 
 const elementsList = document.querySelector('.elements');
 
-const initialCards = [
+var initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -58,26 +56,18 @@ const initialCards = [
   }
 ];
 
-initialCards.forEach(addElement);
 
-  // const elementElement = elementTemplate.cloneNode(true);
-
-  // elementElement.querySelector('.element__title').textContent = element.name;
-  // elementElement.querySelector('.element__image').src = element.link;
-
-  // elementsList.append(elementElement);
-
-// })
+initialCards.reverse().forEach(addElement);
 
 function addElement(element) {
 
-  const elementElement = elementTemplate.cloneNode(true);
+  let elementElement = elementTemplate.cloneNode(true);
 
   elementElement.querySelector('.element__title').textContent = element.name;
   elementElement.querySelector('.element__image').src = element.link;
+  elementElement.querySelector('.element__image').alt = element.name;
 
-  elementsList.append(elementElement);
-
+  elementsList.prepend(elementElement);
 
 }
 
@@ -96,17 +86,22 @@ function handleFormSubmit(evt) {
   } else {
     profileTitle.textContent = profileTitleInput.value;
     profileSubtitle.textContent = profileSubtitleInput.value;
-    popupProfile.classList.remove('popup_opened');    
+    popupProfile.classList.remove('popup_opened');
   }
 }
 
 function ElementSubmit(evt) {
 
-  console.log(evt)
+
   evt.preventDefault();
 
-  addElement()
-  
+  addElement({ name: elementTitleInput.value, link: elementSubtitleInput.value });
+
+  elementTitleInput.value = '';
+  elementSubtitleInput.value = '';
+
+  popupElement.classList.remove('popup_opened');
+
 }
 
 function closePopup() {
@@ -116,8 +111,20 @@ function closePopup() {
 // Избранное
 
 elementsList.addEventListener('click', (eventTarget) => {
-  if (eventTarget.target.classList.contains('element__favorite')) { eventTarget.target.classList.toggle('element__favorite_active') }
+  if (eventTarget.target.classList.contains('element__favorite')) { eventTarget.target.classList.toggle('element__favorite_active') 
+} else if (eventTarget.target.classList.contains('element__delete-button')) { eventTarget.target.parentElement.remove() 
+} else if (eventTarget.target.classList.contains('element__image')) { openPopupImage(eventTarget.target.parentElement) }
 });
+
+
+
+function openPopupImage (evt) {
+  console.log(evt.querySelector('.element__image').src)
+  popupImage.classList.add('popup_opened');
+  popupImage.querySelector('.popup__image').src = evt.querySelector('.element__image').src
+  popupImage.querySelector('.popup__image-title').textContent = evt.querySelector('.element__title').textContent
+}
+
 
 
 editProfileButton.addEventListener('click', openPopupProfile);
@@ -127,11 +134,10 @@ closePopupProfileButton.addEventListener('click', closePopup);
 savePopupSubmitProfile.addEventListener('submit', handleFormSubmit);
 
 
-
-
-
 addPopupElementButton.addEventListener('click', () => popupElement.classList.add('popup_opened'));
 
 closePopupElementButton.addEventListener('click', closePopup);
 
 savePopupSubmitElement.addEventListener('submit', ElementSubmit);
+
+closePopupImageButton.addEventListener('click', closePopup);
