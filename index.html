@@ -20,7 +20,6 @@
     </header>
 
     <main>
-
       <section class="profile">
         <img src="images/avatar-custo.jpg" alt="Фотография пользователя." class="profile__avatar">
         <div class="profile__info">
@@ -31,56 +30,18 @@
         <button class="profile__add-button" type="button"></button>
       </section>
 
-      <section class="elements">
-        <!-- <div class="element">          
-          <img src="images/mesto-karachaevsk.jpg" alt="Разрушенная церковь на фоне холмов." class="element__image">
-          <h2 class="element__title">Карачаевск</h2>
-          <button class="element__favorite" type="button"></button>
-        </div>
-
-        <div class="element">
-          <img src="images/mesto-elbrus.jpg" alt="Силуэт горы на горизонте." class="element__image">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__favorite" type="button"></button>
-        </div>
-
-        <div class="element">
-          <img src="images/mesto-dombay.jpg" alt="Острый пик горы. Вид с подножия." class="element__image">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__favorite" type="button"></button>
-        </div>
-
-        <div class="element">
-          <img src="images/mesto-elbrus.jpg" alt="Силуэт горы на горизонте." class="element__image">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__favorite" type="button"></button>
-        </div>
-
-        <div class="element">
-          <img src="images/mesto-dombay.jpg" alt="Острый пик горы. Вид с подножия." class="element__image">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__favorite" type="button"></button>
-        </div>
-
-        <div class="element">
-          <img src="images/mesto-karachaevsk.jpg" alt="Разрушенная церковь на фоне холмов." class="element__image">
-          <h2 class="element__title">Карачаево-Черкессия</h2>
-          <button class="element__favorite" type="button"></button>
-        </div> -->
-      </section>
-
+      <section class="elements" aria-label="Галлерея мест пользователя"></section>
     </main>
 
     <footer class="footer">
       <p class="copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-
   </div>
 
   <div class="popup popup_name_profile">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
-      <form class="popup__window" name="popup-window">
+      <form class="popup__window popup__window_name_profile" name="popup-window">
         <h2 class="popup__title">Редактировать профиль</h2>
         <input type="text" class="popup__text-input popup__text-input_name_title" name="profile-title">
         <input type="text" class="popup__text-input popup__text-input_name_subtitle" name="profile-subtitle">
@@ -92,10 +53,12 @@
   <div class="popup popup_name_element">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
-      <form class="popup__window" name="popup-window">
+      <form class="popup__window popup__window_name_element" name="popup-window">
         <h2 class="popup__title">Новое место</h2>
-        <input type="text" class="popup__text-input popup__text-input_name_title" name="element-title" placeholder="Название" >
-        <input type="text" class="popup__text-input popup__text-input_name_subtitle" name="element-subtitle" placeholder="Ссылка на картинку">
+        <input type="text" class="popup__text-input popup__text-input_name_title" name="element-title"
+          placeholder="Название">
+        <input type="text" class="popup__text-input popup__text-input_name_subtitle" name="element-subtitle"
+          placeholder="Ссылка на картинку">
         <input type="submit" class="popup__save-button" name="popup-save-button" value="Создать">
       </form>
     </div>
@@ -104,33 +67,21 @@
   <div class="popup popup_name_image">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
-      <!-- <div class=""> -->
-        <img src="" alt="" class="popup__image">
-        <h2 class="popup__image-title">test</h2>
-        
-      <!-- </div> -->
-      <!-- <form class="popup__window" name="popup-window">
-        <h2 class="popup__title">Новое место</h2>
-        <input type="text" class="popup__text-input popup__text-input_name_title" name="element-title" placeholder="Название" >
-        <input type="text" class="popup__text-input popup__text-input_name_subtitle" name="element-subtitle" placeholder="Ссылка на картинку">
-        <input type="submit" class="popup__save-button" name="popup-save-button" value="Создать">
-      </form> -->
+      <img src="#" alt="#" class="popup__image">
+      <h2 class="popup__image-title">test</h2>
     </div>
   </div>
 
   <template class="element-template">
-
     <div class="element">
       <img src="" alt="" class="element__image">
       <h2 class="element__title"></h2>
       <button class="element__favorite" type="button"></button>
       <button class="element__delete-button" type="button"></button>
     </div>
-
   </template>
 
   <script src="scripts/index.js"></script>
-
 </body>
 
 </html>

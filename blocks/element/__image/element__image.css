@@ -3,30 +3,19 @@
   width: 282px;
   height: 282px;
   object-fit: cover;
-  margin: 0;
 
-  
-  display: block;
-  position: relative;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 900;
-  font-size: 14px;
-  line-height: 42px;
+  font-size: 12px;
+  line-height: 22px;
   color: #545454;
   word-break: break-word;
   text-align: center;
-
+  background-color: #000; 
 }
 
 .element__image:before {
-  content: "Изображение не загруженно :(";
-}
-
-.element__image:after {
-  content: "(url: " attr(src) ")";
-  display: block;
-  font-size: 12px;
-
-
+  content: "Изображение не загружено :(";  
+  line-height: 120px;
 }
