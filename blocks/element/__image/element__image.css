@@ -12,10 +12,10 @@
   color: #545454;
   word-break: break-word;
   text-align: center;
-  background-color: #000; 
+  background-color: #000;
 }
 
 .element__image:before {
-  content: "Изображение не загружено :(";  
+  content: "Изображение не загружено :(";
   line-height: 120px;
 }
