@@ -5,6 +5,7 @@ const addPopupElementButton = profile.querySelector('.profile__add-button');
 const editProfileButton = profile.querySelector('.profile__edit-button');
 
 const elementsList = document.querySelector('.elements');
+const elementTemplate = document.querySelector('.element-template').content;
 
 const popupProfile = document.querySelector('.popup_name_profile');
 const savePopupSubmitProfile = popupProfile.querySelector('.popup__window_name_profile');
@@ -68,7 +69,6 @@ function closePopup(evt) {
 }
 
 function createCard(item) {
-  const elementTemplate = document.querySelector('.element-template').content;
   const newElement = elementTemplate.cloneNode(true);
 
   if (item.name.length === 0) item.name = 'без названия';
