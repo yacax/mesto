@@ -1,5 +1,5 @@
 .popup__image {
-    grid-area: popup__window;
+    grid-area: popup__form;
     position: static;
     max-width: 75vw;
     max-height: 75vh;

@@ -7,7 +7,7 @@
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
     "empty-aria-one popup__close-button"
-    "popup__window empty-aria-two";
+    "popup__form empty-aria-two";
   column-gap: 8px;
   row-gap: 8px;
 }
@@ -18,7 +18,7 @@
     grid-template-rows: repeat(2, auto);
     grid-template-areas:
       "popup__close-button"
-      "popup__window";
+      "popup__form";
     justify-items: end;
     row-gap: 16px;
   }

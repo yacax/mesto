@@ -8,20 +8,24 @@ const elementsList = document.querySelector('.elements');
 const elementTemplate = document.querySelector('.element-template').content;
 
 const popupProfile = document.querySelector('.popup_name_profile');
-const savePopupSubmitProfile = popupProfile.querySelector('.popup__window_name_profile');
-const profileTitleInput = popupProfile.querySelector('.popup__text-input_name_title');
-const profileSubtitleInput = popupProfile.querySelector('.popup__text-input_name_subtitle');
+const savePopupSubmitProfile = popupProfile.querySelector('.popup__form_name_profile');
+const profileTitleInput = popupProfile.querySelector('.popup__input_name_title');
+const profileSubtitleInput = popupProfile.querySelector('.popup__input_name_subtitle');
 
 const popupElement = document.querySelector('.popup_name_element');
-const savePopupSubmitElement = popupElement.querySelector('.popup__window_name_element');
-const elementTitleInput = popupElement.querySelector('.popup__text-input_name_title');
-const elementSubtitleInput = popupElement.querySelector('.popup__text-input_name_subtitle');
+const savePopupSubmitElement = popupElement.querySelector('.popup__form_name_element');
+const elementTitleInput = popupElement.querySelector('.popup__input_name_title');
+const elementSubtitleInput = popupElement.querySelector('.popup__input_name_subtitle');
 
 const popupImage = document.querySelector('.popup_name_image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 const popupImageImage = popupImage.querySelector('.popup__image');
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
+
+
+
+
 
 const initialCards = [
   {
@@ -61,7 +65,7 @@ closeButtons.forEach((button) => {
 });
 
 function openPopup(popupName) {
-  popupName.classList.add('popup_opened');
+  popupName.classList.add('popup_opened');  
 }
 
 function closePopup(evt) {
@@ -86,8 +90,15 @@ function createCard(item) {
 
 function openPopupProfile() {
   profileTitleInput.value = profileTitle.textContent;
+  // let event = new Event('input')
+  profileTitleInput.dispatchEvent(new Event('input'))
+  // formProfileTitle.value = profileTitle.textContent;
   profileSubtitleInput.value = profileSubtitle.textContent;
+  profileSubtitleInput.dispatchEvent(new Event('input'))
+  // formProfileSubtitle.value = profileSubtitle.textContent;
   openPopup(popupProfile);
+
+  
 };
 
 function openAddElement() {
@@ -108,18 +119,21 @@ function deleteElement(evt) { evt.target.closest('.element').remove() };
 function handleProfileSubmit(evt) {
   evt.preventDefault();
 
-  if (profileTitleInput.value.length > 35) {
-    alert('Пожалуйста, используйте более короткое имя');
-  } else {
-    profileTitle.textContent = profileTitleInput.value;
-    profileSubtitle.textContent = profileSubtitleInput.value;
-    closePopup(evt);
-  }
+  // if (profileTitleInput.value.length > 35) {
+  //   alert('Пожалуйста, используйте более короткое имя');
+  // } else {
+  profileTitle.textContent = profileTitleInput.value;
+  // profileTitle.textContent = formProfileTitle.value
+  profileSubtitle.textContent = profileSubtitleInput.value;
+  // profileSubtitle.textContent = formProfileSubtitle.value;
+  closePopup(evt);
+  // }
 };
 
 function handleElementSubmit(evt) {
   evt.preventDefault();
 
+  // const item = { name: formElementTitle.value, link: formElementSubtitle.value };
   const item = { name: elementTitleInput.value, link: elementSubtitleInput.value };
   elementsList.prepend(createCard(item));
   evt.target.reset();
@@ -131,3 +145,4 @@ savePopupSubmitProfile.addEventListener('submit', handleProfileSubmit);
 
 addPopupElementButton.addEventListener('click', openAddElement);
 savePopupSubmitElement.addEventListener('submit', handleElementSubmit);
+

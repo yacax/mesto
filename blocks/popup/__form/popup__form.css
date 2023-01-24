@@ -1,5 +1,5 @@
-.popup__window {
-  grid-area: popup__window;
+.popup__form {
+  grid-area: popup__form;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .popup__window {
+  .popup__form {
     width: 282px;
     margin-left: 0;
     padding: 25px 22px;

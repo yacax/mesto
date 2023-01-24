@@ -34,18 +34,45 @@
     </main>
 
     <footer class="footer">
-      <p class="copyright">&copy; 2020 Mesto Russia</p>
+      <p class="copyright">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
 
   <div class="popup popup_name_profile">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
-      <form class="popup__window popup__window_name_profile" name="popup-window">
+
+
+      <form class="popup__form popup__form_name_profile" name="profile" novalidate>
+
+
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__text-input popup__text-input_name_title" name="profile-title">
-        <input type="text" class="popup__text-input popup__text-input_name_subtitle" name="profile-subtitle">
-        <input type="submit" class="popup__save-button" name="popup-save-button" value="Сохранить">
+
+
+
+        <input type="text" class="popup__input popup__input_name_title" name="profilename" placeholder="Имя" required
+          minlength="4" maxlength="40" id="profile-name-input">
+        <span class="popup__error-text profile-name-input-error"></span>
+
+
+
+
+        <!-- <label class="form__field">
+          <input type="text" class="form__input" id="happiness-input" required minlength="4">
+          <span class="form__placeholder happiness-input-placeholder">
+            Как ваше настроение?
+          </span>
+          <span class="form__input-error happiness-input-error"></span>
+        </label> -->
+
+
+
+        <input type="text" class="popup__input popup__input_name_subtitle" name="profiledescription"
+          placeholder="О себе" required minlength="2" maxlength="200" id="profile-description-input">
+        <span class="popup__error-text profile-description-input-error"></span>
+
+        <input type="submit" class="popup__save-button" name="save" value="Сохранить">
+
       </form>
     </div>
   </div>
@@ -53,13 +80,16 @@
   <div class="popup popup_name_element">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
-      <form class="popup__window popup__window_name_element" name="popup-window">
+      <form class="popup__form popup__form_name_element" name="element" novalidate>
         <h2 class="popup__title">Новое место</h2>
-        <input type="text" class="popup__text-input popup__text-input_name_title" name="element-title"
-          placeholder="Название">
-        <input type="text" class="popup__text-input popup__text-input_name_subtitle" name="element-subtitle"
-          placeholder="Ссылка на картинку">
-        <input type="submit" class="popup__save-button" name="popup-save-button" value="Создать">
+        <input type="text" class="popup__input popup__input_name_title" name="title" placeholder="Название" required
+          minlength="2" maxlength="30" id="place-name-input">
+        <span class="popup__error-text place-name-input-error"></span>
+        <input type="url" class="popup__input popup__input_name_subtitle" name="subtitle"
+          placeholder="Ссылка на картинку" id="place-url-input" required>
+        <span class="popup__error-text place-url-input-error"></span>
+
+        <input type="submit" class="popup__save-button popup__save-button_disabled" name="popup-save-button" value="Создать">
       </form>
     </div>
   </div>
@@ -82,6 +112,7 @@
   </template>
 
   <script src="scripts/index.js"></script>
+  <script src="scripts/validate.js"></script>
 </body>
 
 </html>
