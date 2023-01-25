@@ -19,6 +19,9 @@ Media queries
 Fonts import & optimization
 Images optimization
 Debugging
+JS interactive
+JS form validation
+UX optimization
 
 Git
 Figma
