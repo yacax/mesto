@@ -23,9 +23,7 @@ const popupImageImage = popupImage.querySelector('.popup__image');
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
 
-
-
-
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 const initialCards = [
   {
@@ -61,21 +59,26 @@ function addInitialCards(item) {
 };
 
 closeButtons.forEach((button) => {
-  button.addEventListener('click', closePopup);
+  button.addEventListener('click', (event) => { closePopup(event.target.closest('.popup')) });
 });
 
 function openPopup(popupName) {
-  popupName.classList.add('popup_opened');  
+  popupName.classList.add('popup_opened');
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closePopup(popupName) })
+  popupName.addEventListener('click', (event) => { if (checkOverlay(event)) closePopup(popupName) })
 }
 
-function closePopup(evt) {
-  evt.target.closest('.popup').classList.remove('popup_opened');
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened');
+  document.removeEventListener('keydown', (event) => { if (event.key === 'Escape') closePopup(popupName) })
+}
+
+function checkOverlay(event) {
+  return event.target.classList.contains('popup') || event.target.classList.contains('popup__container');
 }
 
 function createCard(item) {
   const newElement = elementTemplate.cloneNode(true);
-
-  if (item.name.length === 0) item.name = 'без названия';
 
   newElement.querySelector('.element__title').textContent = item.name;
   newElement.querySelector('.element__image').src = item.link;
@@ -90,54 +93,44 @@ function createCard(item) {
 
 function openPopupProfile() {
   profileTitleInput.value = profileTitle.textContent;
-  // let event = new Event('input')
-  profileTitleInput.dispatchEvent(new Event('input'))
-  // formProfileTitle.value = profileTitle.textContent;
   profileSubtitleInput.value = profileSubtitle.textContent;
-  profileSubtitleInput.dispatchEvent(new Event('input'))
-  // formProfileSubtitle.value = profileSubtitle.textContent;
+  letInputsEvents(popupProfile)
   openPopup(popupProfile);
-
-  
 };
+
+function letInputsEvents(form) {
+  const inputsList = form.querySelectorAll('.popup__input');
+  inputsList.forEach((input) => { input.dispatchEvent(new Event('input')) })
+}
 
 function openAddElement() {
   openPopup(popupElement);
 };
 
-function openElementImage(evt) {
+function openElementImage(event) {
   openPopup(popupImage);
-  popupImageImage.src = evt.target.closest('.element').querySelector('.element__image').src;
-  popupImageImage.alt = evt.target.closest('.element').querySelector('.element__image').alt;
-  popupImageTitle.textContent = evt.target.closest('.element').querySelector('.element__title').textContent;
+  popupImageImage.src = event.target.closest('.element').querySelector('.element__image').src;
+  popupImageImage.alt = event.target.closest('.element').querySelector('.element__image').alt;
+  popupImageTitle.textContent = event.target.closest('.element').querySelector('.element__title').textContent;
 };
 
-function switchFavorite(evt) { evt.target.classList.toggle('element__favorite_active') };
+function switchFavorite(event) { event.target.classList.toggle('element__favorite_active') };
 
-function deleteElement(evt) { evt.target.closest('.element').remove() };
+function deleteElement(event) { event.target.closest('.element').remove() };
 
-function handleProfileSubmit(evt) {
-  evt.preventDefault();
-
-  // if (profileTitleInput.value.length > 35) {
-  //   alert('Пожалуйста, используйте более короткое имя');
-  // } else {
+function handleProfileSubmit(event) {
+  event.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
-  // profileTitle.textContent = formProfileTitle.value
   profileSubtitle.textContent = profileSubtitleInput.value;
-  // profileSubtitle.textContent = formProfileSubtitle.value;
-  closePopup(evt);
-  // }
+  closePopup(event.target.closest('.popup'));
 };
 
-function handleElementSubmit(evt) {
-  evt.preventDefault();
-
-  // const item = { name: formElementTitle.value, link: formElementSubtitle.value };
+function handleElementSubmit(event) {
+  event.preventDefault();
   const item = { name: elementTitleInput.value, link: elementSubtitleInput.value };
   elementsList.prepend(createCard(item));
-  evt.target.reset();
-  closePopup(evt);
+  event.target.reset();
+  closePopup(event.target.closest('.popup'));
 };
 
 editProfileButton.addEventListener('click', openPopupProfile);
