@@ -21,8 +21,6 @@ const popupImage = document.querySelector('.popup_name_image');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 const popupImageImage = popupImage.querySelector('.popup__image');
 
-const closeButtons = document.querySelectorAll('.popup__close-button');
-
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
 const initialCards = [
@@ -58,23 +56,33 @@ function addInitialCards(item) {
   elementsList.append(createCard(item));
 };
 
-closeButtons.forEach((button) => {
-  button.addEventListener('click', (event) => { closePopup(event.target.closest('.popup')) });
-});
+popupList.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close-button')) {
+          closePopup(popup)
+        }
+    })
+})
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closePopup(popupName) })
-  popupName.addEventListener('click', (event) => { if (checkOverlay(event)) closePopup(popupName) })
+  document.addEventListener('keydown', closeByEscape);
+  enableValidation(setting);
 }
 
 function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
-  document.removeEventListener('keydown', (event) => { if (event.key === 'Escape') closePopup(popupName) })
+  document.removeEventListener('keydown', closeByEscape);  
 }
 
-function checkOverlay(event) {
-  return event.target.classList.contains('popup') || event.target.classList.contains('popup__container');
+function closeByEscape(event) {
+  if (event.key === 'Escape') {    
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+   }
 }
 
 function createCard(item) {
@@ -104,7 +112,7 @@ function letInputsEvents(form) {
 }
 
 function openAddElement() {
-  openPopup(popupElement);
+  openPopup(popupElement);  
 };
 
 function openElementImage(event) {
