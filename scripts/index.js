@@ -69,8 +69,7 @@ popupList.forEach((popup) => {
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
-  enableValidation(setting);
+  document.addEventListener('keydown', closeByEscape);  
 }
 
 function closePopup(popupName) {
