@@ -11,6 +11,7 @@
   <meta name="author" content="Яндекс.Практикум & Александр Завадский">
   <title>mesto</title>
   <link rel="stylesheet" href="pages/index.css">
+  <script type="module" src="scripts/index.js" defer></script>
 </head>
 
 <body class="body">
@@ -65,7 +66,6 @@
         <input type="url" class="popup__input popup__input_name_subtitle" name="subtitle"
           placeholder="Ссылка на картинку" id="place-url-input" required>
         <span class="popup__error-text place-url-input-error"></span>
-
         <input type="submit" class="popup__save-button" name="popup-save-button" value="Создать">
       </form>
     </div>
@@ -87,9 +87,8 @@
       <button class="element__delete-button" type="button"></button>
     </div>
   </template>
-
-  <script src="scripts/index.js"></script>
-  <script src="scripts/validate.js"></script>
+  <!-- <script src="scripts/validate.js"></script> -->
+  <!-- <script type="module" src="scripts/card.js"></script> -->
 </body>
 
 </html>
