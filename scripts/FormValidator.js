@@ -9,6 +9,9 @@ class FormValidator {
 
     this._form = form;
 
+    this._inputsList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
+
     this._setEventListeners = this._setEventListeners.bind(this);
     this._isValid = this._isValid.bind(this);
     this._showInputError = this._showInputError.bind(this);
@@ -21,16 +24,22 @@ class FormValidator {
     this._setEventListeners();
   };
 
+  resetValidation() {
+    this._toggleButtonState(); 
+
+    this._inputsList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+
+  };
+
   _setEventListeners() {
-    const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const buttonElement = this._form.querySelector(this._submitButtonSelector);
+    this._toggleButtonState();
 
-    this._toggleButtonState(inputs, buttonElement);
-
-    inputs.forEach((inputElement) => {
+    this._inputsList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._isValid(inputElement);
-        this._toggleButtonState(inputs, buttonElement);
+        this._toggleButtonState();
       });
     });
   };
@@ -57,21 +66,22 @@ class FormValidator {
     errorElement.textContent = '';
   };
 
-  _hasInvalidInput(inputs) {
-    return inputs.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputsList.some((inputElement) => {
       return !inputElement.validity.valid;
     })
   };
 
-  _toggleButtonState(inputs, buttonElement) {
-    if (this._hasInvalidInput(inputs)) {
-      buttonElement.classList.add(this._inactiveButtonClass);
-      buttonElement.setAttribute('disabled', true);
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputsList)) {
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.setAttribute('disabled', true);
     } else {
-      buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.removeAttribute('disabled');
     }
   };
+
 };
 
 export { FormValidator }
