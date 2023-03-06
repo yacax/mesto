@@ -1,113 +1,84 @@
 import { Card } from './card.js'
 import { FormValidator } from './FormValidator.js';
-import { initialCards } from './data.js'
-
-const profile = document.querySelector('.profile');
-const profileTitle = profile.querySelector('.profile__title');
-const profileSubtitle = profile.querySelector('.profile__subtitle');
-const addPopupElementButton = profile.querySelector('.profile__add-button');
-const editProfileButton = profile.querySelector('.profile__edit-button');
-
-const popupProfile = document.querySelector('.popup_name_profile');
-const savePopupSubmitProfile = popupProfile.querySelector('.popup__form_name_profile');
-const profileTitleInput = popupProfile.querySelector('.popup__input_name_title');
-const profileSubtitleInput = popupProfile.querySelector('.popup__input_name_subtitle');
-
-const popupElement = document.querySelector('.popup_name_element');
-const savePopupSubmitElement = popupElement.querySelector('.popup__form_name_element');
-
-const elementTitleInput = popupElement.querySelector('.popup__input_name_title');
-const elementSubtitleInput = popupElement.querySelector('.popup__input_name_subtitle');
-
-const popupImage = document.querySelector('.popup_name_image');
-const popupImageTitle = popupImage.querySelector('.popup__image-title');
-const popupImageImage = popupImage.querySelector('.popup__image');
-
-const popupList = Array.from(document.querySelectorAll('.popup'));
-
-const formValidators = {};
+import { initialCards } from './data.js';
+import { Section } from './section.js';
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 
 const config = {
   selectorElementsList: '.elements',
-  selectorElementTemplate: '.element-template'
+  selectorElementTemplate: '.element-template',
+  selectorPopup: '.popup',
+  selectorPopupProfile: '.popup_name_profile',
+  selectorPopupElement: '.popup_name_element',
+  selectorPopupImage: '.popup_name_image',
+  selectorUserName: '.profile__title',
+  selectorUserAbout: '.profile__subtitle',
 };
 
-const elementsList = document.querySelector(config.selectorElementsList);
+const profile = document.querySelector('.profile');
+const addPopupElementButton = profile.querySelector('.profile__add-button');
+const editProfileButton = profile.querySelector('.profile__edit-button');
 
-initialCards.forEach((item) => elementsList.append(createCard(item)))
+const user = new UserInfo(config.selectorUserName, config.selectorUserAbout);
 
-popupList.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popup)
-    }
-    if (evt.target.classList.contains('popup__close-button')) {
-      closePopup(popup)
-    };
-  });
-});
+const profilePopup = new PopupWithForm(config.selectorPopupProfile, submitProfile);
+const elementPopup = new PopupWithForm(config.selectorPopupElement, submitNewElement);
+const popupImage = new PopupWithImage(config.selectorPopupImage);
 
-function openPopup(popupName) {
-  popupName.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
-};
+const formValidators = {};
 
-function closePopup(popupName) {
-  popupName.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape);
-};
+const elementsList = new Section({ items: initialCards.reverse(), renderer: renderer }, config.selectorElementsList);
+elementsList.renderer();
 
-function closeByEscape(event) {
-  if (event.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  };
+elementPopup.setEventListeners();
+profilePopup.setEventListeners();
+popupImage.setEventListeners();
+
+function renderer(item) {
+  this.addItem(createCard(item));
 };
 
 function openPopupProfile() {
-  profileTitleInput.value = profileTitle.textContent;
-  profileSubtitleInput.value = profileSubtitle.textContent;
-  openPopup(popupProfile);
+  profilePopup.open();
+  profilePopup.setInputsInitial(user.getUserInfo());
   formValidators['profile'].resetValidation();
 };
 
+function submitProfile(evt) {
+  evt.preventDefault();
+  const newUserData = profilePopup.getDataFromForm();
+  user.setUserInfo(newUserData.name, newUserData.about);
+  profilePopup.close();
+};
+
 function openAddElement() {
-  openPopup(popupElement);
+  elementPopup.open();
   formValidators['element'].resetValidation();
 };
 
-function handleCardClick(name, link) {
-  popupImageImage.src = link;
-  popupImageImage.alt = name;
-  popupImageTitle.textContent = name;
-  openPopup(popupImage);
-};
-
-function handleProfileSubmit(event) {
-  event.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileSubtitle.textContent = profileSubtitleInput.value;
-  closePopup(event.target.closest('.popup'));
-};
-
-function handleElementSubmit(event) {
-  event.preventDefault();
-  const item = { name: elementTitleInput.value, link: elementSubtitleInput.value };
-  elementsList.prepend(createCard(item))
-  event.target.reset();
-  closePopup(event.target.closest('.popup'));
-};
+function submitNewElement(evt) {
+  evt.preventDefault();
+  const newItem = new Section({ items: [elementPopup.getDataFromForm()], renderer: renderer }, config.selectorElementsList);
+  newItem.renderer();
+  elementPopup.close();
+}
 
 function createCard(item) {
   const card = new Card(config.selectorElementTemplate, item, handleCardClick);
   return card.getElement();
 };
 
+function handleCardClick(name, link) {
+  popupImage.open(name, link);
+};
+
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector))
   formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement, handleCardClick)
-    const formName = formElement.getAttribute('name')
+    const validator = new FormValidator(config, formElement, handleCardClick);
+    const formName = formElement.getAttribute('name');
     formValidators[formName] = validator;
     validator.enableValidation();
   });
@@ -123,6 +94,4 @@ enableValidation({
 });
 
 editProfileButton.addEventListener('click', openPopupProfile);
-savePopupSubmitProfile.addEventListener('submit', handleProfileSubmit);
 addPopupElementButton.addEventListener('click', openAddElement);
-savePopupSubmitElement.addEventListener('submit', handleElementSubmit);

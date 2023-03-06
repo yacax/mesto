@@ -39,15 +39,15 @@
     </footer>
   </div>
 
-  <div class="popup popup_name_profile">
+  <div class="popup popup_name_profile" name="profile">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <form class="popup__form popup__form_name_profile" name="profile" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_name_title" name="profilename" placeholder="Имя" required
+        <input type="text" class="popup__input popup__input_name_title" name="name" placeholder="Имя" required
           minlength="4" maxlength="40" id="profile-name-input">
         <span class="popup__error-text profile-name-input-error"></span>
-        <input type="text" class="popup__input popup__input_name_subtitle" name="profiledescription"
+        <input type="text" class="popup__input popup__input_name_subtitle" name="about"
           placeholder="О себе" required minlength="2" maxlength="200" id="profile-description-input">
         <span class="popup__error-text profile-description-input-error"></span>
         <input type="submit" class="popup__save-button" name="save" value="Сохранить">
@@ -55,15 +55,15 @@
     </div>
   </div>
 
-  <div class="popup popup_name_element">
+  <div class="popup popup_name_element" name="element">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <form class="popup__form popup__form_name_element" name="element" novalidate>
         <h2 class="popup__title">Новое место</h2>
-        <input type="text" class="popup__input popup__input_name_title" name="title" placeholder="Название" required
+        <input type="text" class="popup__input popup__input_name_title" name="name" placeholder="Название" required
           minlength="2" maxlength="30" id="place-name-input">
         <span class="popup__error-text place-name-input-error"></span>
-        <input type="url" class="popup__input popup__input_name_subtitle" name="subtitle"
+        <input type="url" class="popup__input popup__input_name_subtitle" name="link"
           placeholder="Ссылка на картинку" id="place-url-input" required>
         <span class="popup__error-text place-url-input-error"></span>
         <input type="submit" class="popup__save-button" name="popup-save-button" value="Создать">
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-  <div class="popup popup_name_image">
+  <div class="popup popup_name_image" name="image">
     <div class="popup__container">
       <button class="popup__close-button" type="button"></button>
       <img src="#" alt="#" class="popup__image">
