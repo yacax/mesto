@@ -1,0 +1,13 @@
+# OS generated files #
+######################
+# .gitignore
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+.editorconfig
+source_tasks/
+node_modules/
+dist
