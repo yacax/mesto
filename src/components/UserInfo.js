@@ -7,9 +7,7 @@ class UserInfo {
   }
 
   getUserInfo() {
-    const user = {}
-    // user[this._selectorUserName] = this._userName.textContent;
-    // user[this._selectorUserAbout] = this._userAbout.textContent;
+    const user = {};
     user.name = this._userName.textContent;
     user.about = this._userAbout.textContent;
     return user;

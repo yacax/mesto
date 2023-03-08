@@ -1,4 +1,4 @@
-import { Popup } from "./popup.js";
+import { Popup } from "./Popup.js";
 
 class PopupWithImage extends Popup {
   constructor(selectorPopup) {
@@ -10,7 +10,7 @@ class PopupWithImage extends Popup {
     this._popupImageImage.src = link;
     this._popupImageImage.alt = name;
     this._popupImageTitle.textContent = name;
-    this._popup.classList.add('popup_opened');
+    super.open();
   };
 }
 

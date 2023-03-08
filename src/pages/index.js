@@ -1,26 +1,13 @@
-import { Card } from './card.js'
-import { FormValidator } from './FormValidator.js';
-import { initialCards } from './data.js';
-import { Section } from './section.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+import { config, addPopupElementButton, editProfileButton } from '../utils/constants.js';
+import { initialCards } from '../utils/data.js';
+import { Card } from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
 import '../pages/index.css';
 
-const config = {
-  selectorElementsList: '.elements',
-  selectorElementTemplate: '.element-template',
-  selectorPopup: '.popup',
-  selectorPopupProfile: '.popup_name_profile',
-  selectorPopupElement: '.popup_name_element',
-  selectorPopupImage: '.popup_name_image',
-  selectorUserName: '.profile__title',
-  selectorUserAbout: '.profile__subtitle',
-};
-
-const profile = document.querySelector('.profile');
-const addPopupElementButton = profile.querySelector('.profile__add-button');
-const editProfileButton = profile.querySelector('.profile__edit-button');
 
 const user = new UserInfo(config.selectorUserName, config.selectorUserAbout);
 
@@ -38,7 +25,7 @@ profilePopup.setEventListeners();
 popupImage.setEventListeners();
 
 function renderer(item) {
-  this.addItem(createCard(item));
+  elementsList.addItem(createCard(item));
 };
 
 function openPopupProfile() {
@@ -47,10 +34,9 @@ function openPopupProfile() {
   formValidators['profile'].resetValidation();
 };
 
-function submitProfile(evt) {
+function submitProfile(evt, newInfo) {
   evt.preventDefault();
-  const newUserData = profilePopup.getDataFromForm();
-  user.setUserInfo(newUserData.name, newUserData.about);
+  user.setUserInfo(newInfo.name, newInfo.about);
   profilePopup.close();
 };
 
@@ -59,10 +45,9 @@ function openAddElement() {
   formValidators['element'].resetValidation();
 };
 
-function submitNewElement(evt) {
+function submitNewElement(evt, newInfo) {
   evt.preventDefault();
-  const newItem = new Section({ items: [elementPopup.getDataFromForm()], renderer: renderer }, config.selectorElementsList);
-  newItem.renderer();
+  elementsList.addItem(createCard(newInfo));
   elementPopup.close();
 }
 

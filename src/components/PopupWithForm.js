@@ -1,4 +1,4 @@
-import { Popup } from "./popup.js";
+import { Popup } from "./Popup.js";
 
 class PopupWithForm extends Popup {
   constructor(selectorPopup, submitForm) {
@@ -16,21 +16,16 @@ class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    return this._inputsList;
-  }
-
-  getDataFromForm() {
     return this._inputsList.reduce((acc, item) => { return { ...acc, [item.name]: item.value, } }, {});
   }
 
   setEventListeners() {
-    this._popup.addEventListener('mousedown', this._closeByMouse);
-    document.addEventListener('keydown', this._handleEscClose);
-    this._form.addEventListener('submit', this._submitForm);
+    super.setEventListeners();
+    this._form.addEventListener('submit', (evt) => this._submitForm(evt, this._getInputValues()));
   }
 
   close() {
-    this._popup.classList.remove('popup_opened');
+    super.close();
     this._form.reset();
   }
 }

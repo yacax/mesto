@@ -44,10 +44,9 @@ class Card {
     this._cardDeleteButton.addEventListener('click', this._deleteElement);
     this._cardFavoriteButton.addEventListener('click', this._switchFavorite);
     this._cardImage.addEventListener('click', () => {
-    this._handleCardClick(this._name, this._link)
+      this._handleCardClick(this._name, this._link)
     });
   };
 };
 
 export { Card }
-
