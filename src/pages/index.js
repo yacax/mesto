@@ -101,7 +101,6 @@ function submitProfile(evt, newInfo) {
 };
 
 function openAddElement() {
-  elementPopup.changeSubmitButtonText('Создать');
   elementPopup.open();
   formValidators['element'].resetValidation();
 };
@@ -124,7 +123,8 @@ function submitNewElement(evt, newInfo) {
       setTimeout(function () {
         elementPopup.changeSubmitButtonText('Создать');
       }, 2000);
-    });
+    })
+    .finally(() => elementPopup.changeSubmitButtonText('Создать'));
 }
 
 function confirmDeleteElement(evt) {
@@ -133,13 +133,13 @@ function confirmDeleteElement(evt) {
   api.deleteCard(cardIdForDelete)
     .then(() => elementsList.deleteItem(elementForDelete))
     .then(() => {
-      popupConfirm.close()
-      popupConfirm.changeSubmitButtonText('Да');
+      popupConfirm.close()      
     })
     .catch((err) => {
       popupConfirm.changeSubmitButtonText('Что-то пошло не так...');
       console.log(err);
-    });
+    })
+    .finally(() => popupConfirm.changeSubmitButtonText('Да'));
 }
 
 function openPopupConfirmDeleteElement(cardId, elementId) {
@@ -149,7 +149,6 @@ function openPopupConfirmDeleteElement(cardId, elementId) {
 }
 
 function openPopupEditAvatar() {
-  popupNewAvatar.changeSubmitButtonText('Сохранить');
   popupNewAvatar.open();
   formValidators['avatar'].resetValidation();
 }
@@ -160,8 +159,7 @@ function confirmUpdateAvatar(evt, newAvatarLink) {
   loadImage(newAvatarLink.avatar)
     .then(() => {
       api.patchAvatar(newAvatarLink.avatar)
-        .then((res) => user.setAvatar(res.avatar))
-        .then(() => popupNewAvatar.close())
+        .then((res) => user.setAvatar(res.avatar))        
     })
     .catch((error) => {
       popupNewAvatar.changeSubmitButtonText('Ошибка загрузки!');
@@ -169,7 +167,9 @@ function confirmUpdateAvatar(evt, newAvatarLink) {
       setTimeout(function () {
         popupNewAvatar.changeSubmitButtonText('Создать');
       }, 2000);
-    });
+    })
+    .then(() => popupNewAvatar.close())
+    .finally(() => popupNewAvatar.changeSubmitButtonText('Сохранить'));
 }
 
 function createCard(item) {
