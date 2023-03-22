@@ -6,14 +6,19 @@ class Section {
   }
 
   renderer() {
-    this._items.forEach(item =>
+    this._items.forEach(item => {
       this._renderer(item)
+    }
     );
   }
 
   addItem(item) {
     this._container.prepend(item)
   }
+
+  deleteItem(item) {
+    this._container.removeChild(item);
+  };
 }
 
 export { Section };
