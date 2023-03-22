@@ -41,14 +41,6 @@ const api = new Api({
   }
 });
 
-api.getInitialCards()
-  .then((result) => {
-    elementsList = new Section({ items: result.reverse(), renderer: renderer }, config.selectorElementsList);
-  }).then(() => elementsList.renderer())
-  .catch((err) => {
-    console.log(err);
-  });
-
 function updateUserInfo() {
   api.getUserData()
     .then((result) => {
@@ -60,7 +52,16 @@ function updateUserInfo() {
     });
 }
 
-updateUserInfo();
+Promise.all([api.getInitialCards(), api.getUserData()])
+  .then(([cards, userData]) => {
+    elementsList = new Section({ items: cards.reverse(), renderer: renderer }, config.selectorElementsList);
+    user.setUserInfo(userData.name, userData.about, userData.avatar);
+    userId = userData._id;
+    elementsList.renderer();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 function loadImage(url) {
   return new Promise((resolve, reject) => {
@@ -155,10 +156,10 @@ function openPopupEditAvatar() {
 
 function confirmUpdateAvatar(evt, newAvatarLink) {
   evt.preventDefault();
-  popupNewAvatar.changeSubmitButtonText('Сохранение...');
-  loadImage(newAvatarLink.link)
+  popupNewAvatar.changeSubmitButtonText('Сохранение...');  
+  loadImage(newAvatarLink.avatar)
     .then(() => {
-      api.patchAvatar(newAvatarLink.link)
+      api.patchAvatar(newAvatarLink.avatar)
         .then((res) => user.setAvatar(res.avatar))
         .then(() => popupNewAvatar.close())
     })
