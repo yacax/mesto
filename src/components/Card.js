@@ -23,7 +23,7 @@ class Card {
 
   _hideDeleteButton() {
     this._cardDeleteButton.style.display = 'none';
-  }
+  };
 
   _getElementFromTemplate() {
     const elementTemplate = document
@@ -47,7 +47,7 @@ class Card {
 
   _isLikedMe() {
     return this._item.likes.some(obj => obj._id === this._user)
-  }
+  };
 
   _showMyLike() {
     this._cardFavoriteButton.classList.add('element__favorite_active')
@@ -58,22 +58,15 @@ class Card {
   }
 
   _switchFavorite() {
-    if (!this._isLikedMe()) {
-      this._api.putLike(this._id).then((res) => {
+    const isLiked = this._isLikedMe();
+    this._api.toggleLike(this._id, !isLiked)
+      .then((res) => {
         this._item.likes = res.likes;
-        this._likes = res.likes.length;
-        this._showMyLike()
-        this._cardLikesNumber.textContent = this._likes;
+        this._cardLikesNumber.textContent = res.likes.length;
+        isLiked ? this._hideMyLike() : this._showMyLike();
       })
-    } else {
-      this._api.deleteLike(this._id).then((res) => {
-        this._item.likes = res.likes;
-        this._likes = res.likes.length;
-        this._hideMyLike();
-        this._cardLikesNumber.textContent = this._likes;
-      })
-    }
-  }
+      .catch((err) => console.log(err));
+  };
 
   _setEventListeners() {
     this._cardDeleteButton.addEventListener('click', () => this._openPopupConfirmDeleteElement(this._id, this._element));

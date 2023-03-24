@@ -15,10 +15,12 @@ import '../pages/index.css';
 import { Api } from '../components/Api.js';
 
 const formValidators = {};
-var userId = '';
-var cardIdForDelete = '';
-var elementForDelete = '';
+
+let cardIdForDelete = '';
+let elementForDelete = '';
+
 let elementsList = [];
+
 const user = new UserInfo(config.selectorUserName, config.selectorUserAbout, config.selectorUserAvatar);
 
 const profilePopup = new PopupWithForm(config.selectorPopupProfile, submitProfile);
@@ -41,23 +43,11 @@ const api = new Api({
   }
 });
 
-function updateUserInfo() {
-  api.getUserData()
-    .then((result) => {
-      user.setUserInfo(result.name, result.about, result.avatar);
-      userId = result._id;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
 Promise.all([api.getInitialCards(), api.getUserData()])
   .then(([cards, userData]) => {
-    elementsList = new Section({ items: cards.reverse(), renderer: renderer }, config.selectorElementsList);
-    user.setUserInfo(userData.name, userData.about, userData.avatar);
-    userId = userData._id;
-    elementsList.renderer();
+    elementsList = new Section({ items: cards.reverse(), renderItems: renderItems }, config.selectorElementsList);
+    user.setUserInfo(userData);
+    elementsList.renderItems();
   })
   .catch((err) => {
     console.log(err);
@@ -70,9 +60,9 @@ function loadImage(url) {
     image.onload = () => resolve(image);
     image.onerror = () => reject(new Error(`Failed to load image: ${url}`));
   });
-}
+};
 
-function renderer(item) {
+function renderItems(item) {
   loadImage(item.link)
     .then(() => {
       const newCard = createCard(item);
@@ -85,19 +75,24 @@ function renderer(item) {
 
 function openPopupProfile() {
   profilePopup.open();
-  profilePopup.changeSubmitButtonText('Сохранить')
   profilePopup.setInputsInitial(user.getUserInfo());
   formValidators['profile'].resetValidation();
 };
 
 function submitProfile(evt, newInfo) {
   evt.preventDefault();
-  profilePopup.changeSubmitButtonText('Сохранение...');
+  profilePopup.renderLoading(true);
   api.patchUserData(newInfo.name, newInfo.about)
     .then((res) => {
-      updateUserInfo();
+      user.setUserInfo(res);
       profilePopup.close();
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() =>
+      profilePopup.renderLoading()
+    );
 };
 
 function openAddElement() {
@@ -107,7 +102,7 @@ function openAddElement() {
 
 function submitNewElement(evt, newInfo) {
   evt.preventDefault();
-  elementPopup.changeSubmitButtonText('Сохранение...');
+  elementPopup.renderLoading(true);
 
   loadImage(newInfo.link)
     .then(() => {
@@ -118,62 +113,56 @@ function submitNewElement(evt, newInfo) {
         });
     })
     .catch((error) => {
-      elementPopup.changeSubmitButtonText('Ошибка загрузки!');
       console.log('Error loading image:', error);
-      setTimeout(function () {
-        elementPopup.changeSubmitButtonText('Создать');
-      }, 2000);
     })
-    .finally(() => elementPopup.changeSubmitButtonText('Создать'));
-}
+    .finally(() => elementPopup.renderLoading()
+    );
+};
 
 function confirmDeleteElement(evt) {
   evt.preventDefault();
-  popupConfirm.changeSubmitButtonText('Удаление...');
+  popupConfirm.renderLoading(true, 'Удаление...');
   api.deleteCard(cardIdForDelete)
     .then(() => elementsList.deleteItem(elementForDelete))
     .then(() => {
-      popupConfirm.close()      
+      popupConfirm.close()
     })
     .catch((err) => {
-      popupConfirm.changeSubmitButtonText('Что-то пошло не так...');
       console.log(err);
     })
-    .finally(() => popupConfirm.changeSubmitButtonText('Да'));
-}
+    .finally(() => popupConfirm.renderLoading()
+    );
+};
 
 function openPopupConfirmDeleteElement(cardId, elementId) {
   cardIdForDelete = cardId;
   elementForDelete = elementId;
   popupConfirm.open();
-}
+};
 
 function openPopupEditAvatar() {
   popupNewAvatar.open();
   formValidators['avatar'].resetValidation();
-}
+};
 
 function confirmUpdateAvatar(evt, newAvatarLink) {
   evt.preventDefault();
-  popupNewAvatar.changeSubmitButtonText('Сохранение...');  
+  popupNewAvatar.renderLoading(true);
   loadImage(newAvatarLink.avatar)
     .then(() => {
       api.patchAvatar(newAvatarLink.avatar)
-        .then((res) => user.setAvatar(res.avatar))        
+        .then((res) => user.setUserInfo(res));
+      popupNewAvatar.close();
     })
     .catch((error) => {
-      popupNewAvatar.changeSubmitButtonText('Ошибка загрузки!');
       console.log('Error loading image:', error);
-      setTimeout(function () {
-        popupNewAvatar.changeSubmitButtonText('Создать');
-      }, 2000);
     })
-    .then(() => popupNewAvatar.close())
-    .finally(() => popupNewAvatar.changeSubmitButtonText('Сохранить'));
-}
+    .finally(() => popupNewAvatar.renderLoading()
+    );
+};
 
 function createCard(item) {
-  const card = new Card(config.selectorElementTemplate, item, handleCardClick, openPopupConfirmDeleteElement, userId, api);
+  const card = new Card(config.selectorElementTemplate, item, handleCardClick, openPopupConfirmDeleteElement, user.getUserInfo().id, api);
   return card.getElement();
 };
 
@@ -203,4 +192,3 @@ enableValidation({
 editProfileButton.addEventListener('click', openPopupProfile);
 addPopupElementButton.addEventListener('click', openAddElement);
 editAvatar.addEventListener('click', openPopupEditAvatar);
-
