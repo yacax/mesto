@@ -2,7 +2,6 @@
     position: absolute;
     top: 20px;
     right: 18px;
-    
     width: 18px;
     height: 19px;
     background: center / contain no-repeat url(../../../images/trash.svg);
@@ -14,6 +13,7 @@
     -moz-background-repeat: no-repeat;
     -o-background-repeat: no-repeat;
     background-repeat: no-repeat;
+    background-color: transparent;
   }
   
   .element__delete-button:hover {

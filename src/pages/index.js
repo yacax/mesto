@@ -103,21 +103,24 @@ function openAddElement() {
 function submitNewElement(evt, newInfo) {
   evt.preventDefault();
   elementPopup.renderLoading(true);
-
   loadImage(newInfo.link)
     .then(() => {
-      api.postNewCard(newInfo)
+      api
+        .postNewCard(newInfo)
         .then((res) => {
-          elementsList.addItem(createCard(res))
+          elementsList.addItem(createCard(res));
           elementPopup.close();
-        });
+        })
+        .catch((error) => {
+          console.log("Error loading image:", error);
+        })
+        .finally(() => elementPopup.renderLoading());
     })
     .catch((error) => {
-      console.log('Error loading image:', error);
-    })
-    .finally(() => elementPopup.renderLoading()
-    );
+      console.log("Error loading image:", error);
+    });
 };
+
 
 function confirmDeleteElement(evt) {
   evt.preventDefault();
@@ -150,15 +153,20 @@ function confirmUpdateAvatar(evt, newAvatarLink) {
   popupNewAvatar.renderLoading(true);
   loadImage(newAvatarLink.avatar)
     .then(() => {
-      api.patchAvatar(newAvatarLink.avatar)
-        .then((res) => user.setUserInfo(res));
-      popupNewAvatar.close();
+      api
+        .patchAvatar(newAvatarLink.avatar)
+        .then((res) => {
+          user.setUserInfo(res);
+          popupNewAvatar.close();
+        })
+        .catch((error) => {
+          console.log("Error loading image:", error);
+        })
+        .finally(() => popupNewAvatar.renderLoading());
     })
     .catch((error) => {
-      console.log('Error loading image:', error);
+      console.log("Error loading image:", error);
     })
-    .finally(() => popupNewAvatar.renderLoading()
-    );
 };
 
 function createCard(item) {

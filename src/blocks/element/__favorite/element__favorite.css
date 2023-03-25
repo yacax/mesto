@@ -3,7 +3,6 @@
   justify-self: center;
   width: 22px;
   height: 19px;
-  /* background: center / cover no-repeat url(../../../images/favorite-button.svg); */
   background-image: url(../../../images/favorite-button.svg);
   background-position: center;
   background-size: contain;
@@ -15,6 +14,7 @@
   -webkit-background-repeat: no-repeat;
   -moz-background-repeat: no-repeat;
   -o-background-repeat: no-repeat;
+  background-color: transparent;
 }
 
 .element__favorite:hover {
